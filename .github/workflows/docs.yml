@@ -1,0 +1,21 @@
+name: Generate PDF Guide
+on: [push]
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Generate PDF
+      uses: docker://pandoc/core:latest
+      with:
+        args: >
+          -s docs/*.md 
+          -o System-Setup-Guide.pdf 
+          -V geometry:margin=1in 
+          -V colorlinks=true 
+          --pdf-engine=xelatex
+    - name: Upload PDF
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-guide
+        path: System-Setup-Guide.pdf
