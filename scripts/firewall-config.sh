@@ -36,3 +36,9 @@ iptables -A INPUT -j LOG --log-prefix "DROPPED: "
 
 # Save rules (Debian/Ubuntu)
 iptables-save > /etc/iptables/rules.v4
+# Add distro detection
+if [ -f /etc/redhat-release ]; then
+  iptables-save > /etc/sysconfig/iptables
+elif [ -f /etc/debian_version ]; then
+  iptables-save > /etc/iptables/rules.v4
+fi 
