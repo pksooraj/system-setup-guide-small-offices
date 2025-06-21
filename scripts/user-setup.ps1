@@ -31,3 +31,10 @@ Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "ScreenSaverIsSecure"
 $securePass = ConvertTo-SecureString "InitialPass123!" -AsPlainText -Force
 New-LocalUser -Name "StandardUser" -Password $securePass -FullName "Standard User" -Description "Non-admin account"
 Add-LocalGroupMember -Group "Users" -Member "StandardUser"
+
+# Add MFA configuration
+Set-MsolUser -UserPrincipalName admin@domain.com -StrongAuthenticationRequirements @{ 
+  "RelyingParty": "*", 
+  "State": "Enabled", 
+  "RememberDevicesNotIssuedBefore": (Get-Date) 
+}
