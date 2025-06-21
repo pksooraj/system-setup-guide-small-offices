@@ -1,4 +1,7 @@
 name: Generate PDF Guide
+permissions:
+  contents: read
+  actions: write
 on: [push]
 jobs:
   build-pdf:
