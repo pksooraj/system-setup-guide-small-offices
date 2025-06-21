@@ -1,1 +1,22 @@
+# pfSense Security Rules (WAN Interface)
+# ======================================
 
+# Block all inbound by default
+block in log all
+
+# Allow essential services
+pass in quick proto tcp from any to self port 80     # HTTP
+pass in quick proto tcp from any to self port 443    # HTTPS
+pass in quick proto udp from any to self port 51820  # WireGuard VPN
+
+# Management access (Restricted IPs)
+pass in quick proto tcp from 192.168.1.0/24 to self port 22  # SSH
+pass in quick proto tcp from 192.168.1.0/24 to self port 9090 # WebUI
+
+# Block common attack vectors
+block in quick proto tcp from any to any port {135:139,445,1433,1434,3306,3389}
+block in quick proto udp from any to any port {137:139,445,1900,5353}
+
+# Block known malicious IP ranges
+table <blocklist> persist file "/path/to/blocklist.txt"
+block in quick from <blocklist>
