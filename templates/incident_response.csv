@@ -1,1 +1,3 @@
-
+Timestamp,Incident_Type,Severity,Affected_Systems,Description,Containment_Actions,Remediation_Status,Followup_Required
+2023-11-15T14:30:00Z,Malware,High,"WS-12, FS-03","Ransomware detected in accounting dept","Isolated network segment, disabled accounts",Contained,Yes
+2023-11-16T09:15:00Z,Phishing,Medium,All workstations,"Company-wide phishing campaign","Blocked sender domain, user training",Resolved,No
